@@ -7,13 +7,18 @@ const env = process.env.NODE_ENV || 'development';
 const plugins = [];
 
 module.exports = {
-    entry: [
-            'react-hot-loader/patch',
-         './src/index.js'
-    ],
+    entry: './client/index.js',
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'public'),
         filename: 'app.bundle.js'
+    },
+    devServer: {
+        proxy: {
+            '/socket.io': {
+            target: 'http://localhost:3000',
+            ws: true
+            }
+        }
     },
     module: {
         rules: [
@@ -36,9 +41,9 @@ module.exports = {
         ]
     },
     plugins: [
-    ...plugins,
+        ...plugins,
         new HtmlWebpackPlugin({
-            template: './src/index.html',
+            template: './client/index.html',
             filename: 'index.html',
             inject: 'body'
         }), 

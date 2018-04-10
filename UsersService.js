@@ -9,7 +9,7 @@ class UsersService {
 	}
 
 	getUserById(userId) {
-		return this.users.find(user => user.id === user.Id);
+		return this.users.find(user => user.id === userId);
 	}
 
 	addUser(user) {
